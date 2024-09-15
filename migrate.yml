@@ -1,0 +1,27 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: django-migrate
+spec:
+  ttlSecondsAfterFinished: 60
+  template:
+    spec:
+      containers:
+        - name: django
+          image: bfcc/k8s-test-django
+          imagePullPolicy: IfNotPresent
+          command: ["python", "manage.py", "migrate", "--no-input"]
+
+          env:
+            - name: SECRET_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: web-secrets
+                  key: WEB_SECRET_KEY
+
+            - name: DATABASE_URL
+              valueFrom:
+                secretKeyRef:
+                  name: web-secrets
+                  key: WEB_DATABASE_URL
+      restartPolicy: OnFailure

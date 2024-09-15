@@ -1,0 +1,18 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: ingress-k8s-test-django
+  labels:
+    name: ingress-k8s-test-django
+spec:
+  rules:
+    - host: sb.test
+      http:
+        paths:
+          - pathType: Prefix
+            path: "/"
+            backend:
+              service:
+                name: k8s-test-django
+                port:
+                  number: 80

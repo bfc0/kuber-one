@@ -1,0 +1,31 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: clear-django-sessions
+spec:
+  schedule: "0 0 * * *" # This runs the job daily at midnight
+  startingDeadlineSeconds: 20
+  jobTemplate:
+    spec:
+      ttlSecondsAfterFinished: 100
+      template:
+        spec:
+          containers:
+            - name: clearsessions
+              image: bfcc/k8s-test-django
+              command: ["python", "manage.py", "clearsessions"]
+              imagePullPolicy: IfNotPresent
+              env:
+                - name: SECRET_KEY
+                  valueFrom:
+                    secretKeyRef:
+                      name: web-secrets
+                      key: WEB_SECRET_KEY
+
+                - name: DATABASE_URL
+                  valueFrom:
+                    secretKeyRef:
+                      name: web-secrets
+                      key: WEB_DATABASE_URL
+
+          restartPolicy: Never

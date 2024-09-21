@@ -1,0 +1,4 @@
+auth:
+  database: k8s_test
+  username: k8s_test
+  password: OwOtBep9Frut

@@ -21,6 +21,7 @@ minikube addons enable ingress
 kubectl apply -f secret.yml
 kubectl apply -f k8s-web.yml
 kubectl apply -f k8s-ingress.yml
+kubectl apply -f k8s-svc.yml
 ```
 
 ### Установить хелм постгреса

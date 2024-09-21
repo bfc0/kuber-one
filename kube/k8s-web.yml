@@ -2,17 +2,14 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: k8s-test-django
-
 spec:
   selector:
     matchLabels:
       app: k8s-test-django
-
   template:
     metadata:
       labels:
         app: k8s-test-django
-
     spec:
       containers:
         - name: k8s-test-django
@@ -44,14 +41,3 @@ spec:
                 secretKeyRef:
                   name: web-secrets
                   key: WEB_ALLOWED_HOSTS
-
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: k8s-test-django
-spec:
-  selector:
-    app: k8s-test-django
-  ports:
-    - port: 80

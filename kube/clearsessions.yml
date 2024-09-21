@@ -21,11 +21,9 @@ spec:
                     secretKeyRef:
                       name: web-secrets
                       key: WEB_SECRET_KEY
-
                 - name: DATABASE_URL
                   valueFrom:
                     secretKeyRef:
                       name: web-secrets
                       key: WEB_DATABASE_URL
-
           restartPolicy: Never

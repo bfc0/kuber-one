@@ -29,7 +29,7 @@ kubectl apply -f k8s-svc.yml
 Заполнить файл pg.yml нужными значениями 
 
 ```
-helm install my-release oci://registry-1.docker.io/bitnamicharts/postgresql -f pg.yml
+helm install my-pg oci://registry-1.docker.io/bitnamicharts/postgresql -f pg.yml
 ```
 
 ### Получить айпи адрес ингресса

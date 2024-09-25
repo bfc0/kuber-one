@@ -20,24 +20,7 @@ spec:
               cpu: "1000m"
           ports:
             - containerPort: 80
-          env:
-            - name: SECRET_KEY
-              valueFrom:
-                secretKeyRef:
-                  name: web-secrets
-                  key: WEB_SECRET_KEY
-            - name: DEBUG
-              valueFrom:
-                secretKeyRef:
-                  name: web-secrets
-                  key: WEB_DEBUG
-            - name: DATABASE_URL
-              valueFrom:
-                secretKeyRef:
-                  name: web-secrets
-                  key: WEB_DATABASE_URL
-            - name: ALLOWED_HOSTS
-              valueFrom:
-                secretKeyRef:
-                  name: web-secrets
-                  key: WEB_ALLOWED_HOSTS
+          envFrom:
+            - secretRef:
+                name: web-secrets
+          

@@ -15,7 +15,7 @@ minikube addons enable ingress
 
 ### Запустить деплойменты
 
-переименовать secret.sample.yml в secret.yml, изменив значения по умолчанию
+Заполнить необходимые значения в secret.yml, упаковав их в base64
 
 ```
 kubectl apply -f secret.yml

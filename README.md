@@ -26,6 +26,8 @@ kubectl apply -f k8s-svc.yml
 
 ### Установить хелм постгреса
 
+Заполнить файл pg.yml нужными значениями 
+
 ```
 helm install my-release oci://registry-1.docker.io/bitnamicharts/postgresql -f pg.yml
 ```

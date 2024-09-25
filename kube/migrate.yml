@@ -11,14 +11,12 @@ spec:
           image: bfcc/k8s-test-django
           imagePullPolicy: IfNotPresent
           command: ["python", "manage.py", "migrate", "--no-input"]
-
           env:
             - name: SECRET_KEY
               valueFrom:
                 secretKeyRef:
                   name: web-secrets
                   key: WEB_SECRET_KEY
-
             - name: DATABASE_URL
               valueFrom:
                 secretKeyRef:

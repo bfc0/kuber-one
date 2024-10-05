@@ -1,25 +1,16 @@
-apiVersion: apps/v1
-kind: Deployment
+apiVersion: batch/v1
+kind: Job
 metadata:
-  name: django
+  name: django-migrate
 spec:
-  selector:
-    matchLabels:
-      app: django
+  ttlSecondsAfterFinished: 60
   template:
-    metadata:
-      labels:
-        app: django
     spec:
       containers:
-        - name: django
-          image: bfcc/k8s-test-django:latest
-          resources:
-            limits:
-              memory: "1024Mi"
-              cpu: "1000m"
-          ports:
-            - containerPort: 80
+        - name: django-migrate
+          image: bfcc/k8s-test-django
+          imagePullPolicy: IfNotPresent
+          command: ["python", "manage.py", "migrate", "--no-input"]
           envFrom:
             - secretRef:
                 name: web-secrets
@@ -37,3 +28,5 @@ spec:
         - name: secretvolume
           secret:
             secretName: pg-root-cert
+
+      restartPolicy: OnFailure

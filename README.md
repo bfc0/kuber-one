@@ -5,6 +5,45 @@
 Внутри контейнера Django приложение запускается с помощью Nginx Unit, не путать с Nginx. Сервер Nginx Unit выполняет сразу две функции: как веб-сервер он раздаёт файлы статики и медиа, а в роли сервера-приложений он запускает Python и Django. Таким образом Nginx Unit заменяет собой связку из двух сервисов Nginx и Gunicorn/uWSGI. [Подробнее про Nginx Unit](https://unit.nginx.org/).
 
 
+[Сайт](https://edu-clever-yalow.sirius-k8s.dvmn.org/)
+
+[Описание выделенных ресурсов](https://sirius-env-registry.website.yandexcloud.net/edu-clever-yalow.html)
+
+## Деплой в кластере Yandex Cloud
+Перейти в папку yc-sirius/edu-clever-yalow
+
+### Задать неймспейс по умолчанию
+```
+kubectl config set-context --current --namespace=edu-clever-yalow
+```
+
+### Установить секреты
+```
+kubectl apply -f secret.yml
+```
+Для установки allowed_hosts воспользоваться echo -n:
+```
+echo -n "edu-clever-yalow.sirius-k8s.dvmn.org,127.0.0.1,localhost" | base64
+```
+
+### Установить секреты
+```
+kubectl apply -f secret.yml
+```
+
+### Установить деплой и нодпорт сервис
+```
+kubectl apply -f django-app.yml
+kubectl apply -f service.yml
+```
+
+### Запустить миграции
+```
+kubectl apply -f migrate.yml
+```
+
+
+
 ## Установка контейнера в миникуб кластере:
 
 ### Установить миникуб:

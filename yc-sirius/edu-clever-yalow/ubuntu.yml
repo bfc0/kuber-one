@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ubuntu
+spec:
+  selector:
+    matchLabels:
+      app: ubuntu
+  template:
+    metadata:
+      labels:
+        app: ubuntu
+    spec:
+      containers:
+        - name: ubuntu
+          image: ubuntu:latest
+          command: ["sleep", "infinity"]
+          volumeMounts:
+            - name: secretvolume
+              mountPath: /root/.postgresql/root.crt
+              subPath: root.crt
+      volumes:
+        - name: secretvolume
+          secret:
+            secretName: pg-root-cert

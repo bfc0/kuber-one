@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: django
+spec:
+  selector:
+    matchLabels:
+      app: django
+  template:
+    metadata:
+      labels:
+        app: ubuntu
+    spec:
+      containers:
+        - name: django
+          image: bfcc/k8s-test-django:latest
+          resources:
+            limits:
+              memory: "1024Mi"
+              cpu: "1000m"
+          ports:
+            - containerPort: 80
+          envFrom:
+            - secretRef:
+                name: web-secrets
+          volumeMounts:
+            - name: secretvolume
+              mountPath: /root/.postgresql/root.crt
+              subPath: root.crt
+      volumes:
+        - name: secretvolume
+          secret:
+            secretName: pg-root-cert

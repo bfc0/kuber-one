@@ -8,7 +8,7 @@ spec:
     spec:
       containers:
         - name: django-migrate
-          image: bfcc/k8s-test-django
+          image: bfcc/k8s-test-django:latest
           imagePullPolicy: IfNotPresent
           command: ["python", "manage.py", "migrate", "--no-input"]
           envFrom:
